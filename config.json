@@ -1,0 +1,5 @@
+{
+  "api_url": "https://detect.roboflow.com",
+  "api_key": "key",
+  "model_id": "model_id"
+}
