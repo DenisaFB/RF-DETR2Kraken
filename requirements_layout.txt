@@ -1,0 +1,7 @@
+# python version : Python 3.12.11
+# inference_sdk : only compatible with Python <3.13, >=3.10
+
+inference_sdk
+supervision
+opencv-python
+lxml

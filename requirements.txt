@@ -1,0 +1,6 @@
+inference_sdk==1.2.7
+supervision==0.28.0
+opencv-python==4.10.0.84
+lxml==6.1.0
+kraken==7.0.2
+numpy==2.3.5

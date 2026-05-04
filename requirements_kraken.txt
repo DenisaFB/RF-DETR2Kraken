@@ -1,0 +1,6 @@
+# On Mac Intel, only kraken, version 5.2.9 is compatible. We installed kraken in a separate conda environment to avoid conficts with dependecies installed in the "rfdetr2page" environment.
+# python version : Python 3.10.18
+
+kraken~=5.2.9
+numpy
+opencv-python
