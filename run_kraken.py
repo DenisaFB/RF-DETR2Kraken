@@ -5,7 +5,7 @@ from src.rfdetr2kraken.merge_kraken_lines_back_into_my_regions import merge_zone
 from src.rfdetr2kraken.simplify_zones_polygons_xml import simplify_polygons_batch
 from src.postprocessing.fix_region_overlaps import fix_overlaps_batch
 from src.postprocessing.fix_lines_spanning_over_multiple_regions import fix_lines_batch
-from src.extract_diagrams.extract_figures import default_region_type, extract_regions_batch
+from src.extract_diagrams.extract_figures import DEFAULT_REGION_TYPE, extract_regions_batch
 
 
 VALID_EXTRACT_MODES = ("bbox", "polygon")
@@ -122,7 +122,7 @@ def main():
         default=None, 
         metavar="TYPE",
         help=("Enable region extraction. "
-            f"If no values are given, defaults to '{default_region_type}'. "
+            f"If no values are given, defaults to '{DEFAULT_REGION_TYPE}'. "
             "Pass space separated values to extract multiple types, e.g.\n"
             "  --extract GraphicZone-figure\n"
             "  --extract MainZone MarginTextZone GraphicZone-figure"))
@@ -139,7 +139,7 @@ def main():
     if args.extract is None:
         extract_types = None
     else:
-        extract_types = args.extract if args.extract else [default_region_type]
+        extract_types = args.extract if args.extract else [DEFAULT_REGION_TYPE]
 
     final_dir = run_kraken_pipeline(
         input_dir=args.input_dir,
