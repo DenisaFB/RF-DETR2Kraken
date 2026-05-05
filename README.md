@@ -203,6 +203,10 @@ At the end you should find in your output folder the following subfolders :
         - GraphicZone-figure
         - ...
 
+In order to import the final results to eScriptorium, the "10_fixed_lines" folder needs to be zipped. Then, the folder is ready to be imported.
+
+Make sure to use exactly the same image files as those you added in the "./images" folder, so that the segmentation matches the images. If the image dimensions change, the XML files do not correspond anymore.
+
 ## Author
 
 Denisa-Florina Bumba, for the ERC Philiumm project
