@@ -163,9 +163,17 @@ python main_pipeline.py --help
 
 The pipeline is composed of the following steps : 
 
-1. Inference on images present in the input folder
+1. Inference on images present in the input folder with two different segmentation models : 
+    - RF-DETR model for : 
+        - MainZone
+        - MarginTextZone
+        - DigitizationArtefactZone
+        - GraphicZone-figure
+        - NumberingZone
+    - Math-zone detection model for : 
+        - math : polygons with mathematical expressions 
 2. Conversion of COCO json format to XML-Page format
-3. Creation of masks to hide the GraphicZone and eventually the Math Zones
+3. Creation of masks to hide the "GraphicZone-figure" and the "math" zones.
 4. Binarisation (this step was necessary for Kraken 5.2.9, but no longer necessary for Kraken 7.0)
 5. Recreating images without the parts that were masked previously.
     * Since the "--mask" parameter is no longer proposed in Kraken 7.0, we recreate the images by completely erasing the zones that were previously masked inside the binary images before passing the baseline detection.
@@ -181,6 +189,12 @@ The pipeline is composed of the following steps :
 At the end you should find in your output folder the following subfolders : 
 
 * 01_predictions_json
+    - maths
+        - image_1.json
+        - image_2.json
+    - rf-detr
+        - image_1.json
+        - image_2.json
 * 02_annotated_images
 * 03_regions_xml
 * 04_masks
