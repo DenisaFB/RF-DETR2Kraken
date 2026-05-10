@@ -30,6 +30,8 @@ VALID_EXTRACT_MODES = ("bbox", "polygon")
 def build_pipeline_dirs(output_dir):
     return {
         "predictions":         output_dir / "01_predictions_json",
+        "predictions_rfdetr":  output_dir / "01_predictions_json" / "rf-detr",
+        "predictions_maths":   output_dir / "01_predictions_json" / "maths",
         "annotated":           output_dir / "02_annotated_images",
         "regions":             output_dir / "03_regions_xml",
         "masks":               output_dir / "04_masks",
@@ -87,22 +89,26 @@ def run_full_pipeline(input_dir, output_dir, config_path,
     if not should_skip("01_predictions / 02_annotated", dirs["predictions"], force):
         run_detection(
             input_dir=input_dir,
-            json_dir=dirs["predictions"],
+            json_dir=dirs["predictions_rfdetr"],
             annotated_dir=dirs["annotated"],
             config_path=config_path)
+        
+    # TODO : add math zone detection step here
+    # the results of the math zone predictions (json files) should be saved in the 01_predictions_json/maths folder
 
     print("\n=== [Step 3] JSON regions -> Page XML regions ===")    
     # Step 03: JSON predictions -> PAGE XML regions
     if not should_skip("03_regions_xml", dirs["regions"], force):
         run_json_to_regions_xml(
-            json_dir=dirs["predictions"],
+            json_dir=dirs["predictions_rfdetr"],
             xml_dir=dirs["regions"])
         
     print("\n=== [Step 4] Binary masks with allowed zones ===")    
     # Step 04: binary masks from allowed zones
     if not should_skip("04_masks", dirs["masks"], force):
         run_masks_from_zones(
-            json_dir=dirs["predictions"],
+            json_dir=dirs["predictions_rfdetr"],
+            math_json_dir=dirs["predictions_maths"],
             mask_dir=dirs["masks"],
             allowed=ALLOWED_ZONES)
 

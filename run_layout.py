@@ -17,12 +17,14 @@ ALLOWED_ZONES = {
 
 def build_pipeline_dirs(output_dir):
     return {
-        "predictions": output_dir / "01_predictions_json",
-        "annotated": output_dir / "02_annotated_images",
-        "regions": output_dir / "03_regions_xml",
-        "masks": output_dir / "04_masks",
-        "binarized": output_dir / "05_binarized",
-        "masked": output_dir / "05b_masked_for_baselines",
+        "predictions":         output_dir / "01_predictions_json",
+        "predictions_rfdetr":  output_dir / "01_predictions_json" / "rf-detr",
+        "predictions_maths":   output_dir / "01_predictions_json" / "maths",
+        "annotated":           output_dir / "02_annotated_images",
+        "regions":             output_dir / "03_regions_xml",
+        "masks":               output_dir / "04_masks",
+        "binarized":           output_dir / "05_binarized",
+        "masked":              output_dir / "05b_masked_for_baselines",
     }
 
 
@@ -31,18 +33,21 @@ def run_full_pipeline(input_dir, output_dir, config_path):
 
     run_detection(
         input_dir=input_dir,
-        json_dir=dirs["predictions"],
+        json_dir=dirs["predictions_rfdetr"],
         annotated_dir=dirs["annotated"],
         config_path=config_path,
     )
 
+    # TODO : add mathematical expression detection here
+
     run_json_to_regions_xml(
-        json_dir=dirs["predictions"],
+        json_dir=dirs["predictions_rfdetr"],
         xml_dir=dirs["regions"],
     )
 
     run_masks_from_zones(
-        json_dir=dirs["predictions"],
+        json_dir=dirs["predictions_rfdetr"],
+        math_json_dir=dirs["predictions_maths"],
         mask_dir=dirs["masks"],
         allowed=ALLOWED_ZONES,
     )
