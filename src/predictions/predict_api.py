@@ -9,7 +9,7 @@ from tqdm import tqdm
 image_extensions = {".jpg", ".jpeg", ".png", ".tif", ".tiff"}
 
 # Adjust this threshold in function of how confident you want the model to be in regards to the prediction
-# A threshold that is to high (close to 1) can result in having less predictions
+# A threshold that is too high (close to 1) can result in having less predictions
 inference_confidence = 0.40
 
 
